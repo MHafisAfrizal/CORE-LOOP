@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Clicker Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+        #coin {
+            width: 100px;
+            height: 100px;
+            background-color: gold;
+            border-radius: 50%;
+            margin: 20px auto;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            user-select: none;
+        }
+        #coin:hover {
+            background-color: #ffcc00;
+        }
+        #upgradeButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        #upgradeButton:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <h1>Coin Clicker</h1>
+    <p>Coins: <span id="coinCount">0</span></p>
+    <p>Click Power: <span id="clickPower">1</span></p>
+    <p>Upgrade Cost: <span id="upgradeCost">10</span></p>
+    <div id="coin" onclick="clickCoin()">Click Me!</div>
+    <button id="upgradeButton" onclick="buyUpgrade()">Buy Upgrade</button>
+
+    <script>
+        let coins = 0;
+        let clickPower = 1;
+        let upgradeCost = 10;
+
+        function clickCoin() {
+            coins += clickPower;
+            updateUI();
+        }
+
+        function buyUpgrade() {
+            if (coins >= upgradeCost) {
+                coins -= upgradeCost;
+                clickPower += 1;
+                upgradeCost = Math.round(upgradeCost * 1.5);
+                updateUI();
+            }
+        }
+
+        function updateUI() {
+            document.getElementById('coinCount').innerText = coins;
+            document.getElementById('clickPower').innerText = clickPower;
+            document.getElementById('upgradeCost').innerText = upgradeCost;
+            document.getElementById('upgradeButton').disabled = coins < upgradeCost;
+        }
+
+        // Initial UI update
+        updateUI();
+    </script>
+</body>
+</html>
